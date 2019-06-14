@@ -8,19 +8,16 @@ class Home extends StatefulWidget {
   }
 }
 
-
-
 class _HomeState extends State<Home> {
-
-
-
-
-  Future<bool>_onBackPressed() {
+  Future<bool> _onBackPressed() {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Do You Want To Exit?', style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300),),
+            title: Text(
+              'Do You Want To Exit?',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300),
+            ),
             actions: <Widget>[
               FlatButton(
                 child: Text('No'),
@@ -39,8 +36,6 @@ class _HomeState extends State<Home> {
         });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -50,18 +45,18 @@ class _HomeState extends State<Home> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blueAccent,
-            title:  Text("Dashboard"),
+            title: Text("Dashboard"),
             actions: <Widget>[
-               Padding(
-                 padding: EdgeInsets.only(right:10.0),
-                 child: IconButton(icon: Icon(Icons.supervised_user_circle),iconSize: 30.0,
-                   onPressed: (){},
-                 ),
-
-               ),
+              Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: IconButton(
+                  icon: Icon(Icons.supervised_user_circle),
+                  iconSize: 30.0,
+                  onPressed: () {},
+                ),
+              ),
             ],
           ),
-
           drawer: Drawer(
             child: ListView(
               children: <Widget>[
@@ -69,29 +64,29 @@ class _HomeState extends State<Home> {
                   accountName: Text('Ashutosh'),
                   currentAccountPicture: GestureDetector(
                     child: CircleAvatar(
-                      backgroundImage:
-                      AssetImage("images/user.png"),
+                      backgroundImage: AssetImage("images/user.png"),
                     ),
                   ),
                   accountEmail: Text('aj97389@gmail.com'),
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage(
-                              'images/back.jpeg'))),
+                          image: AssetImage('images/back.jpeg'))),
                 ),
                 ListTile(
                   title: Text('Transactions'),
                   leading: Icon(Icons.account_balance),
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed("/SignIn");
                   },
                 ),
                 Divider(),
                 ListTile(
                   title: Text('Reports'),
                   leading: Icon(Icons.receipt),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
                 Divider(),
                 ListTile(
@@ -109,16 +104,41 @@ class _HomeState extends State<Home> {
                     Navigator.of(context).pop();
                   },
                 ),
+                Divider(),
+                ListTile(
+                  title: Text('Log Out'),
+                  leading: Icon(Icons.exit_to_app),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed("/SignIn");
+                  },
+                ),
+                Divider(),
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(onPressed:(){
-            Navigator.of(context).pushNamed("/NewSale");
-          },child: Icon(Icons.add),),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed("/NewSale");
+            },
+            child: Icon(Icons.add),
+          ),
           body: Center(
-            child: Text(
-              'HomePage',
-              style: TextStyle(fontSize: 35.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 100.0,
+                  backgroundImage:
+                  AssetImage("images/user.png"),
+
+                ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Text('No Sale Yet!',style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.w300),),
+              ),
+              ],
             ),
           ),
         ),
@@ -126,5 +146,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
