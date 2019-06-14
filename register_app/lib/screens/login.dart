@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,6 +10,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+
+  Future<bool> alertBox() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Chup chaap Sign In karein.', style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300),),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+
+            ],
+          );
+        });
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -52,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text('Powered By VeePay',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.0,
+                                fontSize: 15.0,
                                 fontWeight: FontWeight.w300)),
                       )
                     ],
@@ -76,14 +97,14 @@ class _LoginPageState extends State<LoginPage> {
                                 child: RaisedButton(
                                   color: Colors.lightBlue,
                                   onPressed: () {
-                                    debugPrint('New Account pressed');
+                                    alertBox();
                                   },
                                   child: Text(
                                     'Create  Account',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w300),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
@@ -103,14 +124,14 @@ class _LoginPageState extends State<LoginPage> {
                                   elevation: 1.0,
                                   color: Colors.white,
                                   onPressed: () {
-                                    Navigator.of(context).pushNamed('/HomePage');
+                                    Navigator.of(context).pushNamed('/SignIn');
                                   },
                                   child: Text(
                                     'Sign In',
                                     style: TextStyle(
                                         color: Colors.lightBlue,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w300),
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),

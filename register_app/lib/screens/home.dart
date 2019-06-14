@@ -33,6 +33,8 @@ class _HomeState extends State<Home> {
         });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -52,7 +54,7 @@ class _HomeState extends State<Home> {
                   currentAccountPicture: GestureDetector(
                     child: CircleAvatar(
                       backgroundImage:
-                      NetworkImage('https://i.imgur.com/itElfV3.jpg'),
+                      AssetImage("images/user.png"),
                     ),
                   ),
                   accountEmail: Text('aj97389@gmail.com'),
