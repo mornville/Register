@@ -15,8 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5),(){
-      debugPrint('Stopped  Space');
+   Timer(Duration(seconds: 5),(){
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
           return(Home());
       }));
@@ -35,10 +35,10 @@ class _SplashScreenState extends State<SplashScreen> {
             decoration: BoxDecoration(color: Colors.blue),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                flex: 3,
+                flex: 1,
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -73,24 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.yellow,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top:20.0),
-                    ),
-                    Center(
-                      child:Text('Your Daily Transactions Easily, Everyday',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18.0),),
 
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ],
