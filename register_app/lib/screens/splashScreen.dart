@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         padding: EdgeInsets.only(top: 10.0),
                         child: Text('Powered By VeePay',style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.w300)),
                       )
                     ],
