@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:register_app/screens/splashScreen.dart';
 import 'package:register_app/screens/home.dart';
 import 'package:register_app/screens/signIn.dart';
+import 'package:register_app/screens/addNewSale.dart';
 
 
 import 'package:flutter/services.dart';
@@ -18,6 +19,7 @@ Future main() async {
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         "/HomePage": (BuildContext context) => Home(),
+        "/NewSale": (BuildContext context) =>AddNewSale(),
         "/SignIn": (BuildContext context) => SignIn(),
       },
     ),

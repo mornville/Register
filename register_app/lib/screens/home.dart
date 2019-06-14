@@ -8,7 +8,13 @@ class Home extends StatefulWidget {
   }
 }
 
+
+
 class _HomeState extends State<Home> {
+
+
+
+
   Future<bool>_onBackPressed() {
     return showDialog(
         context: context,
@@ -43,9 +49,19 @@ class _HomeState extends State<Home> {
       child: Container(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('My Drawer app'),
-            backgroundColor: Colors.redAccent,
+            backgroundColor: Colors.blueAccent,
+            title:  Text("Dashboard"),
+            actions: <Widget>[
+               Padding(
+                 padding: EdgeInsets.only(right:10.0),
+                 child: IconButton(icon: Icon(Icons.supervised_user_circle),iconSize: 30.0,
+                   onPressed: (){},
+                 ),
+
+               ),
+            ],
           ),
+
           drawer: Drawer(
             child: ListView(
               children: <Widget>[
@@ -65,26 +81,40 @@ class _HomeState extends State<Home> {
                               'images/back.jpeg'))),
                 ),
                 ListTile(
-                  title: Text('First Page'),
-                  trailing: Icon(Icons.arrow_upward),
+                  title: Text('Transactions'),
+                  leading: Icon(Icons.account_balance),
+                  onTap: (){
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed("/SignIn");
+                  },
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Second Page'),
-                  trailing: Icon(Icons.arrow_right),
+                  title: Text('Reports'),
+                  leading: Icon(Icons.receipt),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Close Button'),
-                  trailing: Icon(Icons.cancel),
+                  title: Text('Deposits'),
+                  leading: Icon(Icons.account_balance_wallet),
                   onTap: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 Divider(),
+                ListTile(
+                  title: Text('Settings'),
+                  leading: Icon(Icons.settings),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
               ],
             ),
           ),
+          floatingActionButton: FloatingActionButton(onPressed:(){
+            Navigator.of(context).pushNamed("/NewSale");
+          },child: Icon(Icons.add),),
           body: Center(
             child: Text(
               'HomePage',
@@ -96,3 +126,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
