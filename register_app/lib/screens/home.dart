@@ -59,8 +59,8 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: NetworkImage(
-                              'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'))),
+                          image: AssetImage(
+                              'images/back.jpeg'))),
                 ),
                 ListTile(
                   title: Text('First Page'),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:register_app/screens/splashScreen.dart';
+import 'package:register_app/screens/home.dart';
+
 void main() {
   runApp(
     MaterialApp(
@@ -7,6 +9,11 @@ void main() {
       title: 'Register.app',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      routes: <String,WidgetBuilder>
+      {
+        "/HomePage" : (BuildContext context)=> Home(),
+      }
+      ,
     ),
   );
 }
