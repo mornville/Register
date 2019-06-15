@@ -66,18 +66,20 @@ class _SignInState extends State<SignIn> {
                               padding: EdgeInsets.all(20.0),
                               child: Column(
                                 children: <Widget>[
-                                  //userName
+                                  Flexible(
+                                    child:   //userName
 
-                                  Container(
-                                    width: 300.0,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(20.0),
-                                      child: TextField(
-                                        style: TextStyle(color: Colors.black,
-                                        ),
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter Username Here',
-                                          contentPadding: EdgeInsets.all(20.0),
+                                    Container(
+                                      width: 300.0,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(20.0),
+                                        child: TextField(
+                                          style: TextStyle(color: Colors.black,
+                                          ),
+                                          decoration: InputDecoration(
+                                            hintText: 'Enter Username Here',
+                                            contentPadding: EdgeInsets.all(20.0),
+                                          ),
                                         ),
                                       ),
                                     ),
