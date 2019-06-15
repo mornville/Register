@@ -9,6 +9,40 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  //DynamicWidget
+  List<DynamicWidget> listDynamic = [];
+  addDynamic(){
+    listDynamic.add(DynamicWidget());
+    setState(() {
+
+    });
+  }
+
+
+  //BackchodAlert
+  Future<bool> alertBox() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('gaand me Chull', style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300),),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+
+            ],
+          );
+        });
+  }
+
+
+
+
   Future<bool> _onBackPressed() {
     return showDialog(
         context: context,
@@ -52,7 +86,9 @@ class _HomeState extends State<Home> {
                 child: IconButton(
                   icon: Icon(Icons.supervised_user_circle),
                   iconSize: 30.0,
-                  onPressed: () {},
+                  onPressed: () {
+                    alertBox();
+                  },
                 ),
               ),
             ],
@@ -119,25 +155,36 @@ class _HomeState extends State<Home> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.of(context).pushNamed("/NewSale");
+              addDynamic();
             },
             child: Icon(Icons.add),
           ),
-          body: Center(
+          body: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 100.0,
-                  backgroundImage:
-                  AssetImage("images/user.png"),
-
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Center(
+                    child: RaisedButton(
+                      color: Colors.lightBlue,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/HomePage');
+                      },
+                      child: Text(
+                        'CheckOut (\$ 400.00)',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
                 ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Text('No Sale Yet!',style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.w300),),
-              ),
+                Flexible(
+                  child: ListView.builder(
+                      itemCount: listDynamic.length,
+                      itemBuilder: (_,index) => listDynamic[index]),
+                ),
               ],
             ),
           ),
@@ -145,4 +192,22 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+
+class DynamicWidget extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: ListTile(
+        leading: Icon(Icons.recent_actors,color: Colors.green,),
+        title: Text('Amount: \$ 30.00'),
+        trailing: Icon(Icons.delete,color: Colors.redAccent,),
+        subtitle: Text('Payment Method: Cash'),
+      ),
+    );
+  }
+
 }
