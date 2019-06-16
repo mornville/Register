@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-int number = 0;
+var number = 0;
 
 class Home extends StatefulWidget {
   @override
@@ -269,57 +269,72 @@ class _DynamicWidgetState extends State<DynamicWidget> {
     return Padding(
       padding: EdgeInsets.all(6.0),
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.black12,
 
-        ),
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                'Transaction No.$number',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 20.0),
-              ),
-            ),
-            //password
-            Container(
-              width: 300.0,
-              child: Padding(
-                padding: EdgeInsets.all(0.0),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Enter Amount Here',
-                    contentPadding: EdgeInsets.all(8.0),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: 300.0,
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            Center(
+              child: Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      'Payment Mode :   ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: 16.0),
+                    const ListTile(
+                      leading: Icon(Icons.account_balance),
+                      title: Text('Customer Transaction'),
+
                     ),
-                    DropdownButton(
-                      iconEnabledColor: Colors.black,
-                      value: _currentCity,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                      style: TextStyle(fontSize: 15.0, color: Colors.red),
+                    Container(
+                      width: 300.0,
+                      child: Padding(
+                        padding: EdgeInsets.all(0.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: 'Enter Amount Here',
+                            contentPadding: EdgeInsets.all(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 300.0,
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Payment Mode :   ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 16.0),
+                            ),
+                            DropdownButton(
+                              iconEnabledColor: Colors.black,
+                              value: _currentCity,
+                              items: _dropDownMenuItems,
+                              onChanged: changedDropDownItem,
+                              style: TextStyle(fontSize: 15.0, color: Colors.red),
+                            ),
+
+
+
+                          ],
+                        ),
+                      ),
+                    ),
+                    ButtonTheme.bar(
+                      // make buttons use the appropriate styles for cards
+                      child: ButtonBar(
+                        children: <Widget>[
+
+                          FlatButton(
+                            child: const Text('REMOVE'),
+                            onPressed: () {/* ... */},
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
