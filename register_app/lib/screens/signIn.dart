@@ -39,6 +39,7 @@ class _SignInState extends State<SignIn> {
                             child: Padding(
                               padding: EdgeInsets.all(20.0),
                               child: ListView(
+
                                 children: <Widget>[
                                  Column(
                                    children: <Widget>[
@@ -52,6 +53,11 @@ class _SignInState extends State<SignIn> {
                                            AssetImage("images/user.png"),
                                          ),
                                        ),
+
+
+
+
+
 
 
                                      Padding(

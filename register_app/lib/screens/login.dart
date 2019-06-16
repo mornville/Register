@@ -41,7 +41,9 @@ class _LoginPageState extends State<LoginPage> {
             decoration: BoxDecoration(color: Colors.blue),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
             children: <Widget>[
               Expanded(
                 flex: 3,
