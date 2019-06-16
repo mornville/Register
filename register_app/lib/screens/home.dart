@@ -97,18 +97,28 @@ class _HomeState extends State<Home> {
             child: ListView(
               children: <Widget>[
                 UserAccountsDrawerHeader(
-                  accountName: Text('Ashutosh'),
+                  accountName: Text('ASHUTOSH',style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w300,letterSpacing: 1.5),),
                   currentAccountPicture: GestureDetector(
                     child: CircleAvatar(
                       backgroundImage: AssetImage("images/user.png"),
                     ),
                   ),
-                  accountEmail: Text('aj97389@gmail.com'),
+                  accountEmail: Text('aj97389@gmail.com',),
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('images/back.jpeg'))),
-                ),
+                    gradient: LinearGradient(
+                      // Where the linear gradient begins and ends
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      // Add one stop for each color. Stops should increase from 0 to 1
+                      stops: [.5, 0.7, 0.7, 0.9],
+                      colors: [
+                        // Colors are easy thanks to Flutter's Colors class.
+                        Colors.deepOrange[800],
+                        Colors.deepOrange[700],
+                        Colors.deepOrange[600],
+                        Colors.deepOrange[400],
+                      ],
+                    )),                ),
                 ListTile(
                   title: Text('Transactions'),
                   leading: Icon(Icons.account_balance),
