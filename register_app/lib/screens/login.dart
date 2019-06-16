@@ -81,87 +81,90 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(color: Color(0xfff6f6f6)),
-                  child: Column(
+                  child: ListView(
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Center(
-                              child: Container(
-                                width: 300.0,
-                                height: 40.0,
-                                child: RaisedButton(
-                                  color: Colors.lightBlue,
-                                  onPressed: () {
-                                    alertBox();
-                                  },
-                                  child: Text(
-                                    'Create  Account',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500),
+
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Center(
+                                  child: Container(
+                                    width: 300.0,
+                                    height: 40.0,
+                                    child: RaisedButton(
+                                      color: Colors.lightBlue,
+                                      onPressed: () {
+                                        alertBox();
+                                      },
+                                      child: Text(
+                                        'Create  Account',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Center(
-                              child: Container(
-                                width: 300.0,
-                                height: 40.0,
-                                child: RaisedButton(
-                                  elevation: 1.0,
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed('/SignIn');
-                                  },
-                                  child: Text(
-                                    'Sign In',
-                                    style: TextStyle(
-                                        color: Colors.lightBlue,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Center(
+                                  child: Container(
+                                    width: 300.0,
+                                    height: 40.0,
+                                    child: RaisedButton(
+                                      elevation: 1.0,
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed('/SignIn');
+                                      },
+                                      child: Text(
+                                        'Sign In',
+                                        style: TextStyle(
+                                            color: Colors.lightBlue,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Center(
-                              child: Container(
-                                child: FlatButton(
-                                  child: Text(
-                                    'Learn About Register.app',
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Center(
+                                  child: Container(
+                                    child: FlatButton(
+                                      child: Text(
+                                        'Learn About Register.app',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      onPressed: () {
+                                        debugPrint('Learn more Pressed');
+                                      },
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    debugPrint('Learn more Pressed');
-                                  },
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
+
+
                     ],
                   ),
                 ),
