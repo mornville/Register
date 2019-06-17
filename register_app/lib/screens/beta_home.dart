@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'dart:async';
+import 'package:sqflite/sqflite.dart';
+import 'package:register_app/models/note.dart';
+import 'package:register_app/utils/database_helper.dart';
 var number = 0;
 
 class Home extends StatefulWidget {
+
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -60,7 +65,7 @@ class _HomeState extends State<Home> {
               FlatButton(
                 child: Text('Yes'),
                 onPressed: () {
-                  exit(0);
+                  Navigator.of(context).pop(true);
                 },
               ),
             ],
@@ -68,46 +73,6 @@ class _HomeState extends State<Home> {
         });
   }
 
-
-  //bottomNavBar drawer
-  static final List<String> _listViewData = [
-    "Inducesmile.com",
-    "Flutter Dev",
-    "Android Dev",
-    "iOS Dev!",
-    "React Native Dev!",
-    "React Dev!",
-  ];
-
-  _showDrawer() {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            child: ListView(
-              children: [
-                Center(
-              child: ListTile(
-                leading: Icon(Icons.verified_user),
-                title: Text('List of Users'),
-              )
-            ),
-                Divider(),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _listViewData
-                      .map((data) => ListTile(
-                    leading: Icon(Icons.arrow_right),
-                    title: Text(data),
-                  ))
-                      .toList(),
-                )
-              ],
-            ),
-          );
-        });
-  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -117,7 +82,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
           appBar: AppBar(title: Text('Dashboard')),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {
@@ -126,6 +91,7 @@ class _HomeState extends State<Home> {
             tooltip: 'Press To Add Transaction',
           ),
           bottomNavigationBar: BottomAppBar(
+
             shape: CircularNotchedRectangle(),
             notchMargin: 5.0,
             child: Row(
@@ -133,9 +99,10 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.supervisor_account),
+                  icon: Icon(Icons.supervisor_account)
+                  ,
                   iconSize: 30.0,
-                  onPressed: _showDrawer,
+                  onPressed: () {},
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 10.0),
@@ -169,19 +136,19 @@ class _HomeState extends State<Home> {
                   ),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
-                    // Where the linear gradient begins and ends
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    // Add one stop for each color. Stops should increase from 0 to 1
-                    stops: [.5, 0.7, 0.7, 0.9],
-                    colors: [
-                      // Colors are easy thanks to Flutter's Colors class.
-                      Colors.deepOrange[800],
-                      Colors.deepOrange[700],
-                      Colors.deepOrange[600],
-                      Colors.deepOrange[400],
-                    ],
-                  )),
+                        // Where the linear gradient begins and ends
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        // Add one stop for each color. Stops should increase from 0 to 1
+                        stops: [.5, 0.7, 0.7, 0.9],
+                        colors: [
+                          // Colors are easy thanks to Flutter's Colors class.
+                          Colors.deepOrange[800],
+                          Colors.deepOrange[700],
+                          Colors.deepOrange[600],
+                          Colors.deepOrange[400],
+                        ],
+                      )),
                 ),
                 ListTile(
                   title: Text('Transactions'),
@@ -230,17 +197,13 @@ class _HomeState extends State<Home> {
           body: Container(
             child: Column(
               children: <Widget>[
-
-                Flexible(
-                  child: ListView.builder(
-                      itemCount: listDynamic.length,
-                      itemBuilder: (context, index) => listDynamic[index]),
-                ),
                 Padding(
-                  padding: EdgeInsets.only(bottom:40.0,top: 10.0),
+                  padding: EdgeInsets.all(20.0),
                   child: Center(
                     child: RaisedButton(
+
                       color: Colors.black,
+
                       onPressed: () {
                         Navigator.of(context).pushNamed('/HomePage');
                       },
@@ -256,6 +219,11 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
+                ),
+                Flexible(
+                  child: ListView.builder(
+                      itemCount: listDynamic.length,
+                      itemBuilder: (context, index) => listDynamic[index]),
                 ),
               ],
             ),
@@ -306,6 +274,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
     return Padding(
       padding: EdgeInsets.all(6.0),
       child: Container(
+
         child: Column(
           children: <Widget>[
             Center(
@@ -316,6 +285,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                     const ListTile(
                       leading: Icon(Icons.account_balance),
                       title: Text('Customer Transaction'),
+
                     ),
                     Container(
                       width: 300.0,
@@ -350,9 +320,11 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                               value: _currentCity,
                               items: _dropDownMenuItems,
                               onChanged: changedDropDownItem,
-                              style:
-                                  TextStyle(fontSize: 15.0, color: Colors.red),
+                              style: TextStyle(fontSize: 15.0, color: Colors.red),
                             ),
+
+
+
                           ],
                         ),
                       ),
@@ -361,6 +333,7 @@ class _DynamicWidgetState extends State<DynamicWidget> {
                       // make buttons use the appropriate styles for cards
                       child: ButtonBar(
                         children: <Widget>[
+
                           FlatButton(
                             child: const Text('REMOVE'),
                             onPressed: () {/* ... */},

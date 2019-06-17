@@ -6,7 +6,7 @@ import 'package:register_app/screens/addNewSale.dart';
 
 
 import 'package:flutter/services.dart';
-
+import 'package:register_app/screens/note_list.dart';
 Future main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
@@ -18,8 +18,9 @@ Future main() async {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
-        "/HomePage": (BuildContext context) => Home(),
+        "/HomePage": (BuildContext context) => NoteList(),
         "/NewSale": (BuildContext context) =>AddNewSale(),
+        "/SignIn": (BuildContext context) => SignIn(),
         "/SignIn": (BuildContext context) => SignIn(),
       },
     ),
