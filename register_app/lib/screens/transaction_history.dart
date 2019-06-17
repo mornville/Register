@@ -1,18 +1,18 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:register_app/models/note.dart';
 import 'package:register_app/utils/database_helper.dart';
+import 'note_list.dart';
+import 'package:flutter/material.dart';
 import 'package:register_app/screens/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
-class NoteList extends StatefulWidget {
+class NoteListHistory extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return NoteListState();
   }
 }
 
-class NoteListState extends State<NoteList> {
+class NoteListState extends State<NoteListHistory> {
   DatabaseHelper databaseHelper = DatabaseHelper();
   List<Note> noteList;
   int count = 0;
@@ -36,18 +36,18 @@ class NoteListState extends State<NoteList> {
               children: [
                 Center(
                     child: ListTile(
-                  leading: Icon(Icons.verified_user),
-                  title: Text('List of Users'),
-                )),
+                      leading: Icon(Icons.verified_user),
+                      title: Text('List of Users'),
+                    )),
                 Divider(),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: _listViewData
                       .map((data) => ListTile(
-                            leading: Icon(Icons.arrow_right),
-                            title: Text(data),
-                          ))
+                    leading: Icon(Icons.arrow_right),
+                    title: Text(data),
+                  ))
                       .toList(),
                 )
               ],
@@ -64,7 +64,7 @@ class NoteListState extends State<NoteList> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppBar(title: Text('Transactions History')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -118,19 +118,19 @@ class NoteListState extends State<NoteList> {
               ),
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                // Where the linear gradient begins and ends
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [.5, 0.7, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  Colors.deepOrange[800],
-                  Colors.deepOrange[700],
-                  Colors.deepOrange[600],
-                  Colors.deepOrange[400],
-                ],
-              )),
+                    // Where the linear gradient begins and ends
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    // Add one stop for each color. Stops should increase from 0 to 1
+                    stops: [.5, 0.7, 0.7, 0.9],
+                    colors: [
+                      // Colors are easy thanks to Flutter's Colors class.
+                      Colors.deepOrange[800],
+                      Colors.deepOrange[700],
+                      Colors.deepOrange[600],
+                      Colors.deepOrange[400],
+                    ],
+                  )),
             ),
             ListTile(
               title: Text('Home'),
@@ -173,8 +173,7 @@ class NoteListState extends State<NoteList> {
               leading: Icon(Icons.settings),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/Settings");
-              },
+                Navigator.of(context).pushNamed("/Reports");              },
             ),
             Divider(),
             ListTile(
@@ -211,14 +210,14 @@ class NoteListState extends State<NoteList> {
                     padding: EdgeInsets.all(10.0),
                     child: Text('Payment Mode : ' +
                         getPaymentMode(this.noteList[position].priority),
-                    style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),),
+                      style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),),
                   ),
                 ],
               ),
               ListTile(
                 leading: CircleAvatar(
                   backgroundColor:
-                      getPriorityColor(this.noteList[position].priority),
+                  getPriorityColor(this.noteList[position].priority),
                   child: getPriorityIcon(this.noteList[position].priority),
                 ),
                 title: Text(
@@ -228,16 +227,10 @@ class NoteListState extends State<NoteList> {
                 subtitle: Text(this.noteList[position].description +
                     ' on ' +
                     this.noteList[position].date),
-                trailing: GestureDetector(
-                  child: FlatButton(onPressed: null, child: Text('REMOVE')),
-                  onTap: () {
-                    _delete(context, noteList[position]);
-                  },
-                ),
-                onTap: () {
-                  debugPrint("ListTile Tapped");
-                  navigateToDetail(this.noteList[position], 'Edit Note');
-                },
+                trailing: FlatButton(onPressed: null, child: Text('Status : PAID')),
+
+
+
               ),
             ],
           ),
@@ -268,7 +261,7 @@ class NoteListState extends State<NoteList> {
         return Icon(Icons.attach_money);
         break;
       case 2:
-        return Icon(Icons.group);
+        return Icon(Icons.ondemand_video);
         break;
 
       default:
@@ -282,10 +275,11 @@ class NoteListState extends State<NoteList> {
         return 'Cash';
         break;
       case 2:
-        return 'Online';
+        return 'Google Pay';
         break;
 
-
+      case 3:
+        return 'PayTM';
     }
   }
 
@@ -304,7 +298,7 @@ class NoteListState extends State<NoteList> {
 
   void navigateToDetail(Note note, String title) async {
     bool result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+    await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NoteDetail(note, title);
     }));
 

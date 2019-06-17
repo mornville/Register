@@ -183,10 +183,21 @@ class _HomeState extends State<Home> {
                     ],
                   )),
                 ),
+
+                ListTile(
+                  title: Text('Home'),
+                  leading: Icon(Icons.home),
+                  onTap: () {
+                    Navigator.of(context).pushNamed("/HomePage");
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Divider(),
                 ListTile(
                   title: Text('Transactions'),
                   leading: Icon(Icons.account_balance),
                   onTap: () {
+                    Navigator.of(context).pushNamed("/History");
                     Navigator.of(context).pop();
                   },
                 ),
@@ -195,6 +206,7 @@ class _HomeState extends State<Home> {
                   title: Text('Reports'),
                   leading: Icon(Icons.receipt),
                   onTap: () {
+                    Navigator.of(context).pushNamed("/Reports");
                     Navigator.of(context).pop();
                   },
                 ),

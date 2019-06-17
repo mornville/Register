@@ -17,7 +17,7 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
-  static var _priorities = ['Cash', 'Google Pay', 'PayTM'];
+  static var _priorities = ['Cash', 'Online'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -53,136 +53,152 @@ class NoteDetailState extends State<NoteDetail> {
                   moveToLastScreen();
                 }),
           ),
-          body: Padding(
-            padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
-            child: ListView(
-              children: <Widget>[
-                // First element
-                ListTile(
-                  title: DropdownButton(
-                      items: _priorities.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String>(
-                          value: dropDownStringItem,
-                          child: Text(dropDownStringItem),
-                        );
-                      }).toList(),
-                      style: textStyle,
-                      value: getPriorityAsString(note.priority),
-                      onChanged: (valueSelectedByUser) {
-                        setState(() {
-                          debugPrint('User selected $valueSelectedByUser');
-                          updatePriorityAsInt(valueSelectedByUser);
-
-                        });
-                      }),
-                ),
-
-                // Second Element
-                Form(
-                  key: _formKey,
-                  child: Column(
+          body: Center(
+            child:
+              Padding(
+                padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
+                child: Center(
+                  child: ListView(
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter Correct Amount';
-                            }
-                            if (!value.contains(RegExp(r'^[0-9.]+$'))) {
-                              return 'Enter Correct Amount';
-                            }
-                            if (value.contains(',')) {
-                              return 'Amount Can Not Contain Any special Character';
-                            }
-                            return null;
-                          },
-
-                          controller: titleController,
-                          style: textStyle,
-
-                          decoration: InputDecoration(
-                              labelText: 'Enter Amount Here',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                        ),
-                      ),
-
-                      // Third Element
-                      Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Description Cannot be Empty';
-                            }
-                            return null;
-                          },
-                          controller: descriptionController,
-                          style: textStyle,
-
-                          decoration: InputDecoration(
-                              labelText: 'Description',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                        ),
-                      ),
-
-                      // Fourth Element
-                      Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                        child: Row(
+                      // First element
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Expanded(
-                              child: RaisedButton(
-                                  color: Theme.of(context).primaryColorDark,
-                                  textColor:
-                                  Theme.of(context).primaryColorLight,
-                                  child: Text(
-                                    'Save',
-                                    textScaleFactor: 1.5,
-                                  ),
-                                  onPressed: () {
-                                    if (_formKey.currentState.validate()) {
-                                      // If the form is valid, display a Snackbar.
-                                      setState(() {
-                                        debugPrint(':)');
-                                        _save();
-                                        updateDescription();
-                                        updateTitle();
-                                      });
-                                    }
+                            ListTile(
+                              leading: Text('Mode :  '),
+                              title: DropdownButton(
+
+                                  items: _priorities.map((String dropDownStringItem) {
+                                    return DropdownMenuItem<String>(
+                                      value: dropDownStringItem,
+                                      child: Text(dropDownStringItem),
+                                    );
+                                  }).toList(),
+
+                                  value: getPriorityAsString(note.priority),
+                                  onChanged: (valueSelectedByUser) {
+                                    setState(() {
+                                      debugPrint('User selected $valueSelectedByUser');
+                                      updatePriorityAsInt(valueSelectedByUser);
+                                    });
                                   }),
                             ),
-                            Container(
-                              width: 5.0,
-                            ),
-                            Expanded(
-                              child: RaisedButton(
-                                color: Theme.of(context).primaryColorDark,
-                                textColor: Theme.of(context).primaryColorLight,
-                                child: Text(
-                                  'Delete',
-                                  textScaleFactor: 1.5,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    debugPrint("Delete button clicked");
-                                    _delete();
-                                  });
-                                },
+
+                            // Second Element
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                      child: ListTile(
+                                        title: TextFormField(
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Enter Correct Amount';
+                                            }
+                                            if (!value.contains(RegExp(r'^[0-9.]+$'))) {
+                                              return 'Enter Correct Amount';
+                                            }
+                                            if (value.contains(',')) {
+                                              return 'Amount Can Not Contain Any special Character';
+                                            }
+                                            return null;
+                                          },
+                                          controller: titleController,
+                                          decoration: InputDecoration(
+                                            labelText: 'Amount (required)',
+                                            labelStyle: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18.0),
+                                          ),
+                                        ),
+                                      )),
+
+                                  // Third Element
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                      child: ListTile(
+                                        title: TextFormField(
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Description REQUIRED';
+                                            }
+
+                                            return null;
+                                          },
+                                          controller: descriptionController,
+                                          decoration: InputDecoration(
+                                            labelText: 'Description (required)',
+                                            labelStyle: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 18.0),
+                                          ),
+                                        ),
+                                      )),
+
+                                  // Fourth Element
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: RaisedButton(
+                                              color: Theme.of(context).primaryColorDark,
+                                              textColor:
+                                              Theme.of(context).primaryColorLight,
+                                              child: Text(
+                                                'Add',
+                                                textScaleFactor: 1.2,
+                                              ),
+                                              onPressed: () {
+                                                if (_formKey.currentState.validate()) {
+                                                  // If the form is valid, display a Snackbar.
+                                                  setState(() {
+                                                    debugPrint(':)');
+                                                    _save();
+                                                    updateDescription();
+                                                    updateTitle();
+                                                  });
+                                                }
+                                              }),
+                                        ),
+                                        Container(
+                                          width: 5.0,
+                                        ),
+                                        Expanded(
+                                          child: FlatButton(
+                                            color: Theme.of(context).primaryColorDark,
+                                            textColor: Theme.of(context).primaryColorLight,
+                                            child: Text(
+                                              'Remove',
+                                              textScaleFactor: 1.2,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                debugPrint("Delete button clicked");
+                                                _delete();
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
-                ),
-              ],
+                )
             ),
+
           ),
         ));
   }
@@ -197,12 +213,11 @@ class NoteDetailState extends State<NoteDetail> {
       case 'Cash':
         note.priority = 1;
         break;
-      case 'Google Pay':
+
+      case 'Online':
         note.priority = 2;
         break;
-      case 'PayTM':
-        note.priority = 3;
-        break;
+
     }
   }
 
@@ -214,11 +229,9 @@ class NoteDetailState extends State<NoteDetail> {
         priority = _priorities[0]; // 'Cash'
         break;
       case 2:
-        priority = _priorities[1]; // 'GooglePay'
+        priority = _priorities[1]; // 'Online'
         break;
-      case 3:
-        priority = _priorities[2]; // 'PayTM'
-        break;
+
     }
     return priority;
   }
