@@ -20,7 +20,7 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['High', 'Low'];
+  static var _priorities = ['Cash', 'Google Pay', 'PayTM'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -97,12 +97,13 @@ class NoteDetailState extends State<NoteDetail> {
                   child: TextField(
                     controller: titleController,
                     style: textStyle,
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       debugPrint('Something changed in Title Text Field');
                       updateTitle();
                     },
                     decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: 'Enter Amount Here',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
@@ -190,11 +191,14 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case 'High':
+      case 'Cash':
         note.priority = 1;
         break;
-      case 'Low':
+      case 'Google Pay':
         note.priority = 2;
+        break;
+      case 'PayTM':
+        note.priority = 3;
         break;
     }
   }
@@ -204,10 +208,13 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0];  // 'High'
+        priority = _priorities[0];  // 'Cash'
         break;
       case 2:
-        priority = _priorities[1];  // 'Low'
+        priority = _priorities[1];  // 'GooglePay'
+        break;
+      case 3:
+        priority = _priorities[2];  // 'PayTM'
         break;
     }
     return priority;

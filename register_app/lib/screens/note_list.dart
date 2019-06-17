@@ -118,19 +118,19 @@ class NoteListState extends State<NoteList> {
               ),
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    // Where the linear gradient begins and ends
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    // Add one stop for each color. Stops should increase from 0 to 1
-                    stops: [.5, 0.7, 0.7, 0.9],
-                    colors: [
-                      // Colors are easy thanks to Flutter's Colors class.
-                      Colors.deepOrange[800],
-                      Colors.deepOrange[700],
-                      Colors.deepOrange[600],
-                      Colors.deepOrange[400],
-                    ],
-                  )),
+                // Where the linear gradient begins and ends
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                // Add one stop for each color. Stops should increase from 0 to 1
+                stops: [.5, 0.7, 0.7, 0.9],
+                colors: [
+                  // Colors are easy thanks to Flutter's Colors class.
+                  Colors.deepOrange[800],
+                  Colors.deepOrange[700],
+                  Colors.deepOrange[600],
+                  Colors.deepOrange[400],
+                ],
+              )),
             ),
             ListTile(
               title: Text('Transactions'),
@@ -189,30 +189,44 @@ class NoteListState extends State<NoteList> {
         return Card(
           color: Colors.white,
           elevation: 2.0,
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor:
-                  getPriorityColor(this.noteList[position].priority),
-              child: getPriorityIcon(this.noteList[position].priority),
-            ),
-            title: Text(
-              this.noteList[position].title,
-              style: titleStyle,
-            ),
-            subtitle: Text(this.noteList[position].date),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.delete,
-                color: Colors.grey,
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('Payment Mode : ' +
+                        getPaymentMode(this.noteList[position].priority),
+                    style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),),
+                  ),
+                ],
               ),
-              onTap: () {
-                _delete(context, noteList[position]);
-              },
-            ),
-            onTap: () {
-              debugPrint("ListTile Tapped");
-              navigateToDetail(this.noteList[position], 'Edit Note');
-            },
+              ListTile(
+                leading: CircleAvatar(
+                  backgroundColor:
+                      getPriorityColor(this.noteList[position].priority),
+                  child: getPriorityIcon(this.noteList[position].priority),
+                ),
+                title: Text(
+                  '\u20B9 ${this.noteList[position].title}',
+                  style: titleStyle,
+                ),
+                subtitle: Text(this.noteList[position].description +
+                    ' on ' +
+                    this.noteList[position].date),
+                trailing: GestureDetector(
+                  child: FlatButton(onPressed: null, child: Text('REMOVE')),
+                  onTap: () {
+                    _delete(context, noteList[position]);
+                  },
+                ),
+                onTap: () {
+                  debugPrint("ListTile Tapped");
+                  navigateToDetail(this.noteList[position], 'Edit Note');
+                },
+              ),
+            ],
           ),
         );
       },
@@ -223,14 +237,14 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
-        return Colors.red;
+        return Colors.white;
         break;
       case 2:
-        return Colors.yellow;
+        return Colors.white;
         break;
 
       default:
-        return Colors.yellow;
+        return Colors.white;
     }
   }
 
@@ -238,21 +252,35 @@ class NoteListState extends State<NoteList> {
   Icon getPriorityIcon(int priority) {
     switch (priority) {
       case 1:
-        return Icon(Icons.play_arrow);
+        return Icon(Icons.attach_money);
         break;
       case 2:
-        return Icon(Icons.keyboard_arrow_right);
+        return Icon(Icons.group);
         break;
 
       default:
-        return Icon(Icons.keyboard_arrow_right);
+        return Icon(Icons.credit_card);
+    }
+  }
+
+  String getPaymentMode(int priority) {
+    switch (priority) {
+      case 1:
+        return 'Cash';
+        break;
+      case 2:
+        return 'Google Pay';
+        break;
+
+      case 3:
+        return 'PayTM';
     }
   }
 
   void _delete(BuildContext context, Note note) async {
     int result = await databaseHelper.deleteNote(note.id);
     if (result != 0) {
-      _showSnackBar(context, 'Note Deleted Successfully');
+
       updateListView();
     }
   }
