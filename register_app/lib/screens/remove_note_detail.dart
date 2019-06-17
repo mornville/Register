@@ -25,7 +25,6 @@ class NoteDetailState extends State<NoteDetail> {
   Note note;
 
   TextEditingController titleController = TextEditingController();
-
   TextEditingController descriptionController = TextEditingController();
 
   NoteDetailState(this.note, this.appBarTitle);
@@ -72,7 +71,6 @@ class NoteDetailState extends State<NoteDetail> {
                         setState(() {
                           debugPrint('User selected $valueSelectedByUser');
                           updatePriorityAsInt(valueSelectedByUser);
-
                         });
                       }),
                 ),
@@ -87,20 +85,34 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextFormField(
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Enter Correct Amount';
-                            }
-                            if (!value.contains(RegExp(r'^[0-9.]+$'))) {
-                              return 'Enter Correct Amount';
-                            }
-                            if (value.contains(',')) {
-                              return 'Amount Can Not Contain Any special Character';
+                              return 'Enter some text';
                             }
                             return null;
                           },
-
-                          controller: titleController,
                           style: textStyle,
-
+                          keyboardType: TextInputType.number,
+                          onEditingComplete: () {
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                              if (_formKey.currentState.validate()) {
+                                // If the form is valid, display a Snackbar.
+                                setState(() {
+                                  debugPrint(':)');
+                                  _save();
+                                });
+                              }                            }
+                          },
+                          onSaved: (String controller) {
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                              if (_formKey.currentState.validate()) {
+                                // If the form is valid, display a Snackbar.
+                                setState(() {
+                                  debugPrint(':)');
+                                  _save();
+                                });
+                              }                            }
+                          },
                           decoration: InputDecoration(
                               labelText: 'Enter Amount Here',
                               labelStyle: textStyle,
@@ -115,13 +127,30 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextFormField(
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Description Cannot be Empty';
+                              return 'Enter some text';
                             }
                             return null;
                           },
                           controller: descriptionController,
                           style: textStyle,
-
+                          onEditingComplete: () {
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                              if (_formKey.currentState.validate()) {
+                                // If the form is valid, display a Snackbar.
+                                setState(() {
+                                  debugPrint(':)');
+                                  _save();
+                                });
+                              }                            }
+                          },
+                          onSaved: (String controller) {
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                              print('ho gaye');
+                              _save();
+                            }
+                          },
                           decoration: InputDecoration(
                               labelText: 'Description',
                               labelStyle: textStyle,
@@ -150,8 +179,6 @@ class NoteDetailState extends State<NoteDetail> {
                                       setState(() {
                                         debugPrint(':)');
                                         _save();
-                                        updateDescription();
-                                        updateTitle();
                                       });
                                     }
                                   }),

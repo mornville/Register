@@ -70,7 +70,7 @@ class NoteListState extends State<NoteList> {
         child: Icon(Icons.add),
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note('', '', 2), 'Add Note');
+          navigateToDetail(Note('', '', 1), 'Add Note');
         },
         tooltip: 'Press To Add Transaction',
       ),
