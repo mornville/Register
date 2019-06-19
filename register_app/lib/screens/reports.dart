@@ -5,6 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:register_app/screens/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
+
+/*
+setState(() {
+debugPrint(':)');
+_save();
+updateDescription();
+updateTitle();
+});
+*/
+
+
+
+
+
 class NoteListHistor extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

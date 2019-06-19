@@ -65,15 +65,7 @@ class NoteListState extends State<NoteListHistory> {
 
     return Scaffold(
       appBar: AppBar(title: Text('Transactions History')),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          debugPrint('FAB clicked');
-          navigateToDetail(Note('', '', 1), 'Add Transaction');
-        },
-        tooltip: 'Press To Add Transaction',
-      ),
+
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 5.0,
@@ -227,7 +219,7 @@ class NoteListState extends State<NoteListHistory> {
                 subtitle: Text(this.noteList[position].description +
                     ' on ' +
                     this.noteList[position].date),
-                trailing: FlatButton(onPressed: null, child: Text('Status : PAID')),
+                trailing: FlatButton(onPressed: null, child: Text('Status : PAID',style: TextStyle(color: Colors.red),)),
 
 
 

@@ -17,6 +17,7 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
+  final _formKey = GlobalKey<FormState>();
   //calc UI
   dynamic text = '0';
   double numOne = 0;
@@ -31,7 +32,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController txt = TextEditingController();
   Widget btn(btnText, Color color, Color textColor) {
     return Container(
-        padding: EdgeInsets.only(bottom: 20.0),
+        padding: EdgeInsets.only(bottom: 2.0),
         child: new RaisedButton(
             child: Text(
               btnText,
@@ -42,7 +43,7 @@ class NoteDetailState extends State<NoteDetail> {
             },
             color: color,
             padding: EdgeInsets.all(22.0),
-            shape: CircleBorder()));
+            ));
   } // end of button
 
   Widget btnZero(btnText, Color color) {
@@ -110,7 +111,39 @@ class NoteDetailState extends State<NoteDetail> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text(appBarTitle),
+            title: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  RaisedButton(
+                      color: Colors.lightGreen,
+                      onPressed: () {
+                        setState(() {
+                          if (finalResult == '' ||
+                              finalResult == '0' && _formKey.currentState.validate()) {
+                            alertBox(
+                                'Error. Enter the Correct Amount.');
+                          } else {
+                            debugPrint(':)');
+                            _save();
+                            updateDescription();
+                            updateTitle();
+                          }
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(1.0),
+                        child: Text(
+                          'CHECKOUT ( \u20B9$finalResult )',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ))
+                ],
+              ),
+            ),
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -123,7 +156,46 @@ class NoteDetailState extends State<NoteDetail> {
                 padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
                 child: Center(
                   child: ListView(
+                      shrinkWrap: true,
                     children: <Widget>[
+
+                       // Third Element
+                       Center(
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           crossAxisAlignment: CrossAxisAlignment.center,
+                           children: <Widget>[
+                                  ListTile(
+                                   title: Row(
+                                     children: <Widget>[
+                                       Text('Note : ',style: TextStyle(fontWeight: FontWeight.w300,
+                                           fontSize: 18.0),),
+                                       Expanded(
+                                         child:Container(
+
+                                             child:Padding(
+                                               padding:EdgeInsets.all(20.0),
+                                               child: TextField(
+                                                 controller: descriptionController,
+                                                 decoration: InputDecoration(
+                                                   labelText:
+                                                   'Description ( Optional )',
+                                                   labelStyle: TextStyle(
+                                                       fontWeight: FontWeight.w300,
+                                                       fontSize: 18.0),
+                                                 ),
+                                               ),
+                                             )
+                                         ),
+                                       )
+                                     ],
+                                   ),
+                                 ),
+                           ],
+                         ),
+                       ),
+
+
                       // First element
                       Center(
                         child: Column(
@@ -131,23 +203,52 @@ class NoteDetailState extends State<NoteDetail> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             ListTile(
-                              leading: Text('Mode :  '),
-                              title: DropdownButton(
-                                  items: _priorities
-                                      .map((String dropDownStringItem) {
-                                    return DropdownMenuItem<String>(
-                                      value: dropDownStringItem,
-                                      child: Text(dropDownStringItem),
-                                    );
-                                  }).toList(),
-                                  value: getPriorityAsString(note.priority),
-                                  onChanged: (valueSelectedByUser) {
-                                    setState(() {
-                                      debugPrint(
-                                          'User selected $valueSelectedByUser');
-                                      updatePriorityAsInt(valueSelectedByUser);
-                                    });
-                                  }),
+
+                              title: Row(
+                                children: <Widget>[
+                                  Text('Payment Mode :       ',style: TextStyle(fontWeight: FontWeight.w300,
+                                      fontSize: 18.0),),
+
+                                  DropdownButton(
+                                      items: _priorities
+                                          .map((String dropDownStringItem) {
+                                        return DropdownMenuItem<String>(
+                                          value: dropDownStringItem,
+                                          child: Text(dropDownStringItem),
+                                        );
+                                      }).toList(),
+                                      value: getPriorityAsString(note.priority),
+                                      style: TextStyle(color: Colors.black,fontSize: 20.0),
+                                      onChanged: (valueSelectedByUser) {
+                                        setState(() {
+                                          debugPrint(
+                                              'User selected $valueSelectedByUser');
+                                          updatePriorityAsInt(valueSelectedByUser);
+                                        });
+                                      }),
+                                ],
+                              )
+                            ),
+
+                            // Second Element
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            ListTile(
+
+                                title: Row(
+                                  children: <Widget>[
+                                    Text('Amount :    \u20B9 $finalResult ',style: TextStyle(fontWeight: FontWeight.w300,
+                                        fontSize: 18.0),),
+
+
+                                  ],
+                                )
                             ),
 
                             // Second Element
@@ -155,91 +256,60 @@ class NoteDetailState extends State<NoteDetail> {
                         ),
                       ),
                       //second element
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                      padding: EdgeInsets.all(15.0),
-                                      child: RaisedButton(
-                                          color: Colors.lightGreen,
-                                          onPressed: () {
-                                            setState(() {
-                                              if (finalResult == '' ||
-                                                  finalResult == '0') {
-                                                alertBox('Error. Enter the Correct Amount.');
-                                              }
-                                              else
-                                                {
-                                                  debugPrint(':)');
-                                                  _save();
-                                                  updateDescription();
-                                                  updateTitle();
-                                                }
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.all(15.0),
-                                            child: Text(
-                                              'Checkout ( \u20B9$finalResult )',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25.0,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                          )))),
-                            ],
-                          ),
-                          Divider(),
-                          Container(
-                            height: 70.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              btn('7', Colors.white, Colors.grey),
-                              btn('8', Colors.white, Colors.grey),
-                              btn('9', Colors.white, Colors.grey),
-                              btn('x', Colors.orange, Colors.white),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              btn('4', Colors.white, Colors.grey),
-                              btn('5', Colors.white, Colors.grey),
-                              btn('6', Colors.white, Colors.grey),
-                              btn('-', Colors.orange, Colors.white),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              btn('1', Colors.white, Colors.grey),
-                              btn('2', Colors.white, Colors.grey),
-                              btn('3', Colors.white, Colors.grey),
-                              btn('+', Colors.orange, Colors.white),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              btn('0', Colors.white, Colors.grey),
-                              btn('.', Colors.white, Colors.grey),
-                              btn('C', Colors.red, Colors.white), // AARRGGBB
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
 
-                              btn('=', Colors.orange, Colors.white),
-                            ],
-                          ),
-                        ],
+                            Container(
+                              height: 70.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                btn('7', Colors.white, Colors.grey),
+                                btn('8', Colors.white, Colors.grey),
+                                btn('9', Colors.white, Colors.grey),
+                                btn('x', Colors.white, Colors.grey),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                btn('4', Colors.white, Colors.grey),
+                                btn('5', Colors.white, Colors.grey),
+                                btn('6', Colors.white, Colors.grey),
+                                btn('-', Colors.white, Colors.grey),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                btn('1', Colors.white, Colors.grey),
+                                btn('2', Colors.white, Colors.grey),
+                                btn('3', Colors.white, Colors.grey),
+                                btn('+', Colors.white, Colors.grey),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                btn('0', Colors.white, Colors.grey),
+                                btn('.', Colors.white, Colors.grey),
+                                btn('C', Colors.white, Colors.red), // AARRGGBB
+
+                                btn('=', Colors.orange, Colors.white),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 )),
           ),
+
         ));
   }
 
@@ -281,7 +351,7 @@ class NoteDetailState extends State<NoteDetail> {
 
   // Update the description of Note object
   void updateDescription() {
-    note.description = 'This is it';
+    note.description = descriptionController.text;
   }
 
   // Save data to database

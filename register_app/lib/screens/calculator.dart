@@ -13,6 +13,7 @@ class IosCloneCalcState extends State<IosCloneCalc> {
   dynamic finalResult = '';
   dynamic opr = '';
   dynamic preOpr = '';
+  dynamic operand = '+';
 
   TextEditingController txt = TextEditingController();
 
@@ -49,93 +50,79 @@ class IosCloneCalcState extends State<IosCloneCalc> {
   } // end of button
 
   Widget build(BuildContext buildCx) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: Text('Add Transaction'),
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
+    return Container(
         margin: EdgeInsets.only(bottom: 20.0),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: ListView(
           children: <Widget>[
-            Row(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: RaisedButton(
+                                color: Colors.lightGreen,
+                                onPressed: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'Checkout ( \u20B9$finalResult )',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                )))),
+                  ],
+                ),
+                Divider(),
+                Container(
+                  height: 70.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    btn('7', Colors.white, Colors.grey),
+                    btn('8', Colors.white, Colors.grey),
+                    btn('9', Colors.white, Colors.grey),
+                    btn('x', Colors.orange, Colors.white),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    btn('4', Colors.white, Colors.grey),
+                    btn('5', Colors.white, Colors.grey),
+                    btn('6', Colors.white, Colors.grey),
+                    btn('-', Colors.orange, Colors.white),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    btn('1', Colors.white, Colors.grey),
+                    btn('2', Colors.white, Colors.grey),
+                    btn('3', Colors.white, Colors.grey),
+                    btn('+', Colors.orange, Colors.white),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    btn('0', Colors.white, Colors.grey),
+                    btn('.', Colors.white, Colors.grey),
+                    btn('C', Colors.red, Colors.white), // AARRGGBB
 
-                Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: RaisedButton(
-                          color: Colors.lightGreen,
-                          onPressed: () {},
-                          child: Padding(padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            'Checkout (\u20B9$finalResult)',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.w300
-                            ),
-                          ),)
-                        ))),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.only(right: 20.0, bottom: 20.0),
-                  child: new TextField(
-                    controller: txt,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 60.0,
-                    ),
-                  ),
-                )),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                btn('7', Colors.white, Colors.grey),
-                btn('8', Colors.white, Colors.grey),
-                btn('9', Colors.white, Colors.grey),
-                btn('x', Colors.orange, Colors.white),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                btn('4', Colors.white, Colors.grey),
-                btn('5', Colors.white, Colors.grey),
-                btn('6', Colors.white, Colors.grey),
-                btn('-', Colors.orange, Colors.white),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                btn('1', Colors.white, Colors.grey),
-                btn('2', Colors.white, Colors.grey),
-                btn('3', Colors.white, Colors.grey),
-                btn('+', Colors.orange, Colors.white),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                btn('0', Colors.white, Colors.grey),
-                btn('.', Colors.white, Colors.grey),
-                btn('C', Colors.red, Colors.white), // AARRGGBB
-
-                btn('=', Colors.orange, Colors.white),
+                    btn('=', Colors.orange, Colors.white),
+                  ],
+                ),
               ],
             ),
           ],
-        ),
-      ),
-    );
+        ));
   } // end of state class
 
   void calculation(btnText) {
@@ -172,12 +159,16 @@ class IosCloneCalcState extends State<IosCloneCalc> {
       }
 
       if (opr == '+') {
+        operand = '+';
         finalResult = add();
       } else if (opr == '-') {
+        operand = '-';
         finalResult = sub();
       } else if (opr == 'x') {
+        operand = 'x';
         finalResult = mul();
       } else if (opr == '/') {
+        operand = '/';
         finalResult = div();
       }
       preOpr = opr;

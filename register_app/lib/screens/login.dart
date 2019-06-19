@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Chup chaap Sign In karein.', style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300),),
+            title: Text('Sign in please.', style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w300),),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok'),
