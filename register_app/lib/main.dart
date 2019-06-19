@@ -6,6 +6,7 @@ import 'package:register_app/screens/addNewSale.dart';
 import 'package:register_app/screens/transaction_history.dart';
 import 'package:register_app/screens/reports.dart';
 import 'package:register_app/screens/setting.dart';
+import 'package:register_app/screens/calculator.dart';
 
 
 import 'package:flutter/services.dart';
@@ -26,6 +27,7 @@ Future main() async {
         "/SignIn": (BuildContext context) => SignIn(),
         "/History": (BuildContext context) => NoteListHistory(),
         "/Reports": (BuildContext context) => NoteListHistor(),
+        "/calc": (BuildContext context) => IosCloneCalc(),
 
         "/Settings": (BuildContext context) => Settings(),
 
