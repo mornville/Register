@@ -74,11 +74,31 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController descriptionController = TextEditingController();
 
   NoteDetailState(this.note, this.appBarTitle);
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.title;
+    //alertBox
+    Future<bool> alertBox(String alertText) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                '$alertText',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+              ],
+            );
+          });
+    }
+    //endAlertBox
 
     titleController.text = note.title;
     descriptionController.text = note.description;
@@ -131,7 +151,6 @@ class NoteDetailState extends State<NoteDetail> {
                             ),
 
                             // Second Element
-
                           ],
                         ),
                       ),
@@ -149,10 +168,17 @@ class NoteDetailState extends State<NoteDetail> {
                                           color: Colors.lightGreen,
                                           onPressed: () {
                                             setState(() {
-                                              debugPrint(':)');
-                                              _save();
-                                              updateDescription();
-                                              updateTitle();
+                                              if (finalResult == '' ||
+                                                  finalResult == '0') {
+                                                alertBox('Error. Enter the Correct Amount.');
+                                              }
+                                              else
+                                                {
+                                                  debugPrint(':)');
+                                                  _save();
+                                                  updateDescription();
+                                                  updateTitle();
+                                                }
                                             });
                                           },
                                           child: Padding(
@@ -382,6 +408,7 @@ class NoteDetailState extends State<NoteDetail> {
       txt.text = finalResult;
     });
   }
+
   String add() {
     result = (numOne + numTwo).toString();
     numOne = double.parse(result);
