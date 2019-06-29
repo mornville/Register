@@ -9,6 +9,9 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -71,73 +74,84 @@ class _SignInState extends State<SignIn> {
                                        ),
                                      ),
                                      //password
-                                     Container(
-                                       width: 300.0,
-                                       child: Padding(
-                                         padding: EdgeInsets.all(20.0),
-                                         child: TextField(
-                                           style: TextStyle(color: Colors.black,
-                                           ),
-                                           decoration: InputDecoration(
-                                             hintText: 'Enter Username Here',
-                                             contentPadding: EdgeInsets.all(20.0),
-                                           ),
-                                         ),
-                                       ),
-                                     ),
-                                     Container(
-                                       width: 300.0,
-                                       child: Padding(
-                                         padding: EdgeInsets.all(20.0),
-                                         child: Column(
-                                           children: <Widget>[
-                                             TextField(
-                                               style: TextStyle(color: Colors.black,
-                                               ),
+                                   Form(
+                                     key:_formKey,
+                                     child: Column(
+                                       children: <Widget>[
+                                         Container(
+                                           width: 300.0,
+                                           child: Padding(
+                                             padding: EdgeInsets.all(20.0),
+                                             child: TextField(
+                                               controller: username,
                                                decoration: InputDecoration(
-                                                 hintText: 'Enter Password Here',
-                                                 contentPadding: EdgeInsets.all(20.0),
+                                                 labelText:
+                                                 'Username (required)',
+                                                 labelStyle: TextStyle(
+                                                     fontWeight: FontWeight.w300,
+                                                     fontSize: 15.0),
                                                ),
                                              ),
-                                             Row(
-                                               mainAxisAlignment: MainAxisAlignment.end,
+                                           ),
+                                         ),
+                                         Container(
+                                           width: 300.0,
+                                           child: Padding(
+                                             padding: EdgeInsets.all(20.0),
+                                             child: Column(
                                                children: <Widget>[
-                                                 Padding(
-                                                   padding: EdgeInsets.only(top:20.0),
-                                                   child:Text('Forgot Password?',style: TextStyle(fontWeight: FontWeight.w500),),
+                                                 TextField(
+                                                   controller: password,
+                                                   decoration: InputDecoration(
+                                                     labelText:
+                                                     'Password (required)',
+                                                     labelStyle: TextStyle(
+                                                         fontWeight: FontWeight.w300,
+                                                         fontSize: 15.0),
+                                                   ),
                                                  ),
+                                                 Row(
+                                                   mainAxisAlignment: MainAxisAlignment.end,
+                                                   children: <Widget>[
+                                                     Padding(
+                                                       padding: EdgeInsets.only(top:20.0),
+                                                       child:Text('Forgot Password?',style: TextStyle(fontWeight: FontWeight.w500),),
+                                                     ),
 
+                                                   ],
+                                                 ),
                                                ],
                                              ),
+                                           ),
+                                         ),
+
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.center,
+
+                                           children: <Widget>[
+                                             Padding(padding: EdgeInsets.all(20.0),
+                                               child: Container(
+                                                 width: 100.0,
+                                                 height: 40.0,
+                                                 child: RaisedButton(
+                                                   color: Colors.lightBlue,
+                                                   onPressed: () {
+                                                     Navigator.of(context).pushNamed('/HomePage');
+                                                   },
+                                                   child: Text(
+                                                     'Sign In',
+                                                     style: TextStyle(
+                                                         color: Colors.white,
+                                                         fontSize: 18.0,
+                                                         fontWeight: FontWeight.w400),
+                                                   ),
+                                                 ),
+                                               ),)
                                            ],
                                          ),
-                                       ),
-                                     ),
-
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-
-                                       children: <Widget>[
-                                         Padding(padding: EdgeInsets.all(20.0),
-                                           child: Container(
-                                             width: 100.0,
-                                             height: 40.0,
-                                             child: RaisedButton(
-                                               color: Colors.lightBlue,
-                                               onPressed: () {
-                                                 Navigator.of(context).pushNamed('/HomePage');
-                                               },
-                                               child: Text(
-                                                 'Sign In',
-                                                 style: TextStyle(
-                                                     color: Colors.white,
-                                                     fontSize: 18.0,
-                                                     fontWeight: FontWeight.w400),
-                                               ),
-                                             ),
-                                           ),)
                                        ],
                                      ),
+                                   )
                                    ],
                                  ),
 

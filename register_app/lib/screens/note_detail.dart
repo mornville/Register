@@ -370,10 +370,10 @@ class NoteDetailState extends State<NoteDetail> {
 
     if (result != 0) {
       // Success
-      _showAlertDialog('Status', 'Note Saved Successfully');
+      _showAlertDialog('Status', 'Transaction Saved Successfully');
     } else {
       // Failure
-      _showAlertDialog('Status', 'Problem Saving Note');
+      _showAlertDialog('Status', 'Problem Saving Transaction');
     }
   }
 

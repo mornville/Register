@@ -27,6 +27,20 @@ class NoteListState extends State<NoteList> {
     "React Dev!",
   ];
 
+  Widget buildList(String title, String nav)
+  {
+    return ListTile(
+
+      title: Text('$title'),
+      leading: Icon(Icons.home),
+      onTap: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed('$nav');
+
+      },
+    );
+  }
+
   _showDrawer() {
     showModalBottomSheet(
         context: context,
@@ -91,7 +105,9 @@ class NoteListState extends State<NoteList> {
               child: IconButton(
                 icon: Icon(Icons.history),
                 iconSize: 30.0,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/History");
+                },
               ),
             ),
           ],
@@ -132,14 +148,7 @@ class NoteListState extends State<NoteList> {
                 ],
               )),
             ),
-            ListTile(
-              title: Text('Home'),
-              leading: Icon(Icons.home),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed("/HomePage");
-              },
-            ),
+            buildList('Home','/HomePage'),
             Divider(),
             ListTile(
               title: Text('Transactions'),
@@ -189,7 +198,16 @@ class NoteListState extends State<NoteList> {
           ],
         ),
       ),
-      body: getNoteListView(),
+      body: Center(
+        child: Container(
+          child: Stack(
+            children: <Widget>[
+
+              getNoteListView()
+            ],
+          ),
+        ),
+      ),
     );
   }
 
